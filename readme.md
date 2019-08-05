@@ -30,19 +30,20 @@ The preferred JSON object to be returned by the API should be structured as foll
     "bio": "I work at statefarm",
     "image": "image-link",
     "following": false,
-    "country": "kenya"
+    "country": "kenya",
+    "level": "novice"
   }
 }
 ```
-### Single Article
+### Single Recipe
 ```source-json
 {
   "recipe": {
-    "slug": "how-to-train-your-dragon",
-    "title": "How to train your dragon",
-    "description": "Ever wonder how?",
-    "body": "It takes a Jacobian",
-    "tagList": ["dragons", "training"],
+    "slug": "managu-with-milk",
+    "title": "Managu with Milk",
+    "description": "Delicious Managu with Milk",
+    "ingredients": ["Managu", "Milk"],
+    "tagList": ["vegetables"],
     "createdAt": "2016-02-18T03:22:56.637Z",
     "updatedAt": "2016-02-18T03:48:35.824Z",
     "rating": 3.5
@@ -51,50 +52,58 @@ The preferred JSON object to be returned by the API should be structured as foll
     "author": {
       "username": "jake",
       "bio": "I work at statefarm",
-      "image": "https://i.stack.imgur.com/xHWG8.jpg",
-      "following": false
+      "image": "image-link",
+      "following": false,
+      "country": "kenya",
+      "level": "novice"
     }
   }
 }
 ```
-### Multiple Articles
+### Multiple recipes
 ```source-json
 {
-  "articles":[{
-    "slug": "how-to-train-your-dragon",
-    "title": "How to train your dragon",
-    "description": "Ever wonder how?",
-    "body": "It takes a Jacobian",
-    "tagList": ["dragons", "training"],
+  "recipes":[{
+    "slug": "managu-with-milk",
+    "title": "Managu with Milk",
+    "description": "Delicious Managu with Milk",
+    "ingredients": ["Managu", "Milk"],
+    "tagList": ["vegetables"],
     "createdAt": "2016-02-18T03:22:56.637Z",
     "updatedAt": "2016-02-18T03:48:35.824Z",
+    "rating": 3.5
     "favorited": false,
     "favoritesCount": 0,
     "author": {
       "username": "jake",
       "bio": "I work at statefarm",
-      "image": "https://i.stack.imgur.com/xHWG8.jpg",
-      "following": false
+      "image": "image-link",
+      "following": false,
+      "country": "kenya",
+      "level": "novice"
     }
+  }
   }, {
-
-    "slug": "how-to-train-your-dragon-2",
-    "title": "How to train your dragon 2",
-    "description": "So toothless",
-    "body": "It a dragon",
-    "tagList": ["dragons", "training"],
+    "slug": "managu-with-milk",
+    "title": "Managu with Milk",
+    "description": "Delicious Managu with Milk",
+    "ingredients": ["Managu", "Milk"],
+    "tagList": ["vegetables"],
     "createdAt": "2016-02-18T03:22:56.637Z",
     "updatedAt": "2016-02-18T03:48:35.824Z",
+    "rating": 3.5
     "favorited": false,
     "favoritesCount": 0,
     "author": {
       "username": "jake",
       "bio": "I work at statefarm",
-      "image": "https://i.stack.imgur.com/xHWG8.jpg",
-      "following": false
+      "image": "image-link",
+      "following": false,
+      "country": "kenya",
+      "level": "novice"
     }
   }],
-  "articlesCount": 2
+  "recipesCount": 2
 }
 ```
 ### Single Comment
@@ -108,8 +117,10 @@ The preferred JSON object to be returned by the API should be structured as foll
     "author": {
       "username": "jake",
       "bio": "I work at statefarm",
-      "image": "https://i.stack.imgur.com/xHWG8.jpg",
-      "following": false
+      "image": "image-link",
+      "following": false,
+      "country": "kenya",
+      "level": "novice"
     }
   }
 }
@@ -125,8 +136,10 @@ The preferred JSON object to be returned by the API should be structured as foll
     "author": {
       "username": "jake",
       "bio": "I work at statefarm",
-      "image": "https://i.stack.imgur.com/xHWG8.jpg",
-      "following": false
+      "image": "image-link",
+      "following": false,
+      "country": "kenya",
+      "level": "novice"
     }
   }],
   "commentsCount": 1
@@ -136,8 +149,8 @@ The preferred JSON object to be returned by the API should be structured as foll
 ```source-json
 {
   "tags": [
-    "reactjs",
-    "angularjs"
+    "kenyan",
+    "dessert"
   ]
 }
 ```
@@ -251,11 +264,11 @@ Authentication required, returns a Profile
 
 No additional parameters required
 
-### List Articles
+### List Recipes
 
-`GET /api/articles`
+`GET /api/recipes`
 
-Returns most recent articles globally by default, provide `tag`, `author` or `favorited` query parameter to filter results
+Returns most recent recipes globally by default, provide `tag`, `author` or `culture`, `meal-time` query parameter to filter results
 
 Query Parameters:
 
@@ -271,39 +284,39 @@ Favorited by user:
 
 `?favorited=jake`
 
-Limit number of articles (default is 20):
+Limit number of recipes (default is 20):
 
 `?limit=20`
 
-Offset/skip number of articles (default is 0):
+Offset/skip number of recipes (default is 0):
 
 `?offset=0`
 
-Authentication optional, will return multiple articles, ordered by most recent first
+Authentication optional, will return multiple recipes, ordered by most recent first
 
-### Feed Articles
+### Feed Recipes
 
-`GET /api/articles/feed`
+`GET /api/recipes/feed`
 
-Can also take `limit` and `offset` query parameters like List Articles
+Can also take `limit` and `offset` query parameters like List recipes
 
-Authentication required, will return multiple articles created by followed users, ordered by most recent first.
+Authentication required, will return multiple recipes created by followed users, ordered by most recent first.
 
-### Get Article
+### Get Recipe
 
-`GET /api/articles/:slug`
+`GET /api/recipes/:slug`
 
-No authentication required, will return single article
+No authentication required, will return single recipe
 
-### Create Article
+### Create recipe
 
-`POST /api/articles`
+`POST /api/recipes`
 
 Example request body:
 
 ```source-json
 {
-  "article": {
+  "recipe": {
     "title": "How to train your dragon",
     "description": "Ever wonder how?",
     "body": "You have to believe",
@@ -312,41 +325,41 @@ Example request body:
 }
 ```
 
-Authentication required, will return an Article
+Authentication required, will return an recipe
 
 Required fields: `title`, `description`, `body`
 
 Optional fields: `tagList` as an array of Strings
 
-### Update Article
+### Update recipe
 
-`PUT /api/articles/:slug`
+`PUT /api/recipes/:slug`
 
 Example request body:
 
 ```source-json
 {
-  "article": {
+  "recipe": {
     "title": "Did you train your dragon?"
   }
 }
 ```
 
-Authentication required, returns the updated Article
+Authentication required, returns the updated recipe
 
 Optional fields: `title`, `description`, `body`
 
 The `slug` also gets updated when the `title` is changed
 
-### Delete Article
+### Delete recipe
 
-`DELETE /api/articles/:slug`
+`DELETE /api/recipes/:slug`
 
 Authentication required
 
-### Add Comments to an Article
+### Add Comments to an recipe
 
-`POST /api/articles/:slug/comments`
+`POST /api/recipes/:slug/comments`
 
 Example request body:
 
@@ -361,30 +374,30 @@ Example request body:
 Authentication required, returns the created Comment
 Required field: `body`
 
-### Get Comments from an Article
+### Get Comments from an recipe
 
-`GET /api/articles/:slug/comments`
+`GET /api/recipes/:slug/comments`
 
 Authentication optional, returns multiple comments
 
 ### Delete Comment
 
-`DELETE /api/articles/:slug/comments/:id`
+`DELETE /api/recipes/:slug/comments/:id`
 
 Authentication required
 
-### Favorite Article
+### Favorite recipe
 
-`POST /api/articles/:slug/favorite`
+`POST /api/recipes/:slug/favorite`
 
-Authentication required, returns the Article
+Authentication required, returns the recipe
 No additional parameters required
 
-### Unfavorite Article
+### Unfavorite recipe
 
-`DELETE /api/articles/:slug/favorite`
+`DELETE /api/recipes/:slug/favorite`
 
-Authentication required, returns the Article
+Authentication required, returns the recipe
 
 No additional parameters required
 
