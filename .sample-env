@@ -1,0 +1,3 @@
+source env/bin/activate
+
+SECRET_KEY=your_secret_key
