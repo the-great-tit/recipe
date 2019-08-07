@@ -1,6 +1,8 @@
 Recipe - Sharing the African heritage through the African meals.
 =======
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/928287e0ec2e4803ba0919f24d8d689e)](https://app.codacy.com/app/willeswa/recipe?utm_source=github.com&utm_medium=referral&utm_content=the-great-tit/recipe&utm_campaign=Badge_Grade_Dashboard)
+
 ## Vision
 Create a community where anyone can cook. 
 
