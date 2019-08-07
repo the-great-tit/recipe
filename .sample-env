@@ -1,3 +1,12 @@
+# Activate the virtual environment
 source env/bin/activate
 
+# Setup your secret key
 SECRET_KEY=your_secret_key
+
+
+# database setup
+export DBNAME=recipe_db
+export DBUSER=your_db_user
+export DPPASS=your_db_password
+export DBHOST=localhost
