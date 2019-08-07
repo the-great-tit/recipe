@@ -2,7 +2,7 @@
 source env/bin/activate
 
 # Setup your secret key
-SECRET_KEY=your_secret_key
+export SECRET_KEY=your_secret_key
 
 
 # database setup
