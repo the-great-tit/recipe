@@ -3,6 +3,7 @@ from rest_framework.response import Response
 
 
 class RecipesView(APIView):
-    def get(self, request):
+    @staticmethod
+    def get(request):
         content = {'message': 'Hello, World!'}
         return Response(content)
