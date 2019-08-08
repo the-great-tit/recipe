@@ -1,7 +1,9 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/928287e0ec2e4803ba0919f24d8d689e)](https://app.codacy.com/app/willeswa/recipe?utm_source=github.com&utm_medium=referral&utm_content=the-great-tit/recipe&utm_campaign=Badge_Grade_Dashboard) 
+[![Build Status](https://travis-ci.com/the-great-tit/recipe.svg?branch=develop)](https://travis-ci.com/the-great-tit/recipe)
+[![Coverage Status](https://coveralls.io/repos/github/the-great-tit/recipe/badge.svg?branch=ch-ci-coverals-codacy-167698279)](https://coveralls.io/github/the-great-tit/recipe?branch=ch-ci-coverals-codacy-167698279)
+
 Recipe - Sharing the African heritage through the African meals.
 =======
-
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/928287e0ec2e4803ba0919f24d8d689e)](https://app.codacy.com/app/willeswa/recipe?utm_source=github.com&utm_medium=referral&utm_content=the-great-tit/recipe&utm_campaign=Badge_Grade_Dashboard)
 
 ## Vision
 Create a community where anyone can cook. 
