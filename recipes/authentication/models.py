@@ -83,7 +83,7 @@ class User(AbstractBaseUser, PermissionsMixin, SoftDeleteModel):
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    role = models.ForeignKey(Role, on_delete=models.DO_NOTHING, default=2)
+    # role = models.ForeignKey(Role, on_delete=models.DO_NOTHING, default=2)
     GUID = models.UUIDField(default=uuid.uuid4, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
 
