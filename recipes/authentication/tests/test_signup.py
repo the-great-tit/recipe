@@ -4,8 +4,7 @@ url = '/rest-auth/registration/'
 test_user = {
         'username': 'test',
         'email': 'test@mail.com',
-        'password1': 'testPass1!',
-        'password2': 'testPass1!'
+        'password': 'testPass1!',
     }
 
 
