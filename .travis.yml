@@ -22,8 +22,7 @@ before_script:
   - python manage.py migrate
 
 script:
-  - coverage run --source=recipes ./manage.py test
+  - pytest --cov=recipes/
 
 after_success:
   - coveralls
-
