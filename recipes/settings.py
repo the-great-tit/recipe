@@ -25,9 +25,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    'testserver',
-]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -56,6 +54,11 @@ INSTALLED_APPS = [
     'recipes.hack',
     'recipes.recipe',
 ]
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER':
+        'recipes.authentication.serializers.RegisterSerializer',
+}
 
 SITE_ID = 1
 REST_USE_JWT = True
