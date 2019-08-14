@@ -1,45 +1,25 @@
-from allauth.account.utils import setup_user_email
 from django.contrib.auth import get_user_model
-from allauth.account.adapter import get_adapter
 from rest_framework import serializers
+from .models import Role
+
+User = get_user_model()
 
 
-class RegisterSerializer(serializers.Serializer):
+class RegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password')
+        extra_kwargs = {'password': {'write_only': True}}
 
-    email = serializers.EmailField(required=True)
-    password = serializers.CharField(write_only=True)
-    username = serializers.CharField(required=True)
-
-    user = get_user_model()
-
-    def validate_email(self, email):
-        email = get_adapter().clean_email(email)
-        if email and self.user.objects.filter(email=email).exists():
-            raise serializers.ValidationError(
-                  "A user is already registered with this e-mail address.")
-        return email
-
-    def validate_username(self, username):
-        if self.user.objects.filter(username=username).exists():
-            raise serializers.ValidationError(
-                "That username is already taken.")
-        return username
-
-    @staticmethod
-    def validate_password(password):
-        return get_adapter().clean_password(password)
-
-    def get_cleaned_data(self):
-        return {
-            'password': self.validated_data.get('password', ''),
-            'email': self.validated_data.get('email', ''),
-            'username': self.validated_data.get('username', '')
-        }
-
-    def save(self, request):
-        adapter = get_adapter()
-        user = adapter.new_user(request)
-        self.cleaned_data = self.get_cleaned_data()
-        adapter.save_user(request, user, self)
-        setup_user_email(request, user, [])
+    def create(self, validated_data):
+        user = User(email=validated_data['email'],
+                    username=validated_data['username'])
+        user.set_password(validated_data['password'])
+        user.save()
         return user
+
+
+class RoleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Role
+        fields = '__all__'
