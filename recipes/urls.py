@@ -3,6 +3,7 @@ from django.urls import path, include
 
 api_url_patterns = [
     path('auth/', include('recipes.authentication.urls')),
+    path('recipes/', include('recipes.recipe.urls')),
 ]
 
 urlpatterns = [

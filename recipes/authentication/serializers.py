@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+
 from .models import Role
+from .utils.mails import account_verification
 
 User = get_user_model()
 
@@ -16,6 +18,12 @@ class RegisterSerializer(serializers.ModelSerializer):
                     username=validated_data['username'])
         user.set_password(validated_data['password'])
         user.save()
+
+        # send verification email
+        user = User.objects.get(username=validated_data['username'])
+        token = user.gen_token
+        account_verification.delay(user.email, token)
+
         return user
 
 
