@@ -55,6 +55,9 @@ class UserManager(BaseUserManager):
 
         return user
 
+    def get_by_natural_key(self, username):
+        return self.get(username=username)
+
     def create_superuser(self, email, password):
         """Super user."""
         user = self.create_user(
@@ -109,6 +112,9 @@ class User(AbstractBaseUser, PermissionsMixin, SoftDeleteModel):
         token = jwt_encode_handler(payload)
 
         return token
+
+    # def get_by_natural_key(self, username):
+    #     return self.get(username=username)
 
     def __str__(self):
         """Display user email by default."""

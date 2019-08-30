@@ -1,7 +1,11 @@
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ObjectDoesNotExist
+from jwt import ExpiredSignatureError, DecodeError
 from rest_framework import generics, views, status
 from .serializers import RoleSerializer, RegisterSerializer
 from rest_framework.response import Response
+from rest_framework_jwt.utils import jwt_decode_handler
+
 from .models import Role
 
 User = get_user_model()
@@ -51,10 +55,31 @@ class LoginView(views.APIView):
                 return Response(
                     {"error": "Wrong password or username"},
                     status=status.HTTP_400_BAD_REQUEST)
-            except Exception:
+            except ObjectDoesNotExist:
                 return Response({'error': 'You are not registered'},
                                 status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({'error': 'Please provide a username and '
                                       'password'},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+
+class AccountVerificationView(views.APIView):
+    permission_classes = ()
+
+    @staticmethod
+    def get(request, *args, **kwargs):
+        token = request.query_params.get("token").replace('/', '').strip()
+        try:
+            decoded_payload = jwt_decode_handler(token)
+            User.objects.filter(
+                username=decoded_payload['username']
+            ).update(is_active=True)
+            return Response({'message': 'Account activated successfully'},
+                            status=status.HTTP_200_OK)
+        except ExpiredSignatureError:
+            return Response({'error': 'JWT expired'},
+                            status=status.HTTP_400_BAD_REQUEST)
+        except DecodeError:
+            return Response({'error': 'Invalid token'},
                             status=status.HTTP_400_BAD_REQUEST)

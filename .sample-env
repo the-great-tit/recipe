@@ -12,3 +12,10 @@ export DPPASS=your_db_password
 export DBHOST=localhost
 
 export DJANGO_SETTINGS_MODULE=recipes.settings
+
+# email settings
+export EMAIL_HOST=
+export EMAIL_HOST_USER=
+export EMAIL_HOST_PASSWORD=
+export EMAIL_PORT=
+export DOMAIN=
