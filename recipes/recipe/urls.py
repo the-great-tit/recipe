@@ -2,17 +2,14 @@
 from rest_framework.routers import DefaultRouter
 
 from recipes.recipe.views import RecipesView, \
-    IngredientView, RecipeIngredientView, ProcedureView
+    IngredientView, RecipeIngredientView, ProcedureView, \
+    MealTypeView
 
 router = DefaultRouter()
-router.register(r'', RecipesView, basename='recipe')
-router.register(r'procedure/', ProcedureView, base_name='procedure')
-router.register(r'ingredient/', IngredientView, base_name='ingredient')
-router.register(r'ingredient_quantity/', RecipeIngredientView,
-                base_name='ingredient_quantity')
+router.register(r'meal-recipes', RecipesView, basename='recipe')
+router.register(r'procedures', ProcedureView, base_name='procedure')
+router.register(r'ingredients', IngredientView, base_name='ingredient')
+router.register(r'ingredient_list', RecipeIngredientView,
+                base_name='ingredient_list')
+router.register(r'meal-types', MealTypeView)
 urlpatterns = router.urls
-
-# urlpatterns = [
-#     path('', RecipesView.as_view({'get': 'list',
-#                                   'post': 'create'}), name='recipes'),
-# ]

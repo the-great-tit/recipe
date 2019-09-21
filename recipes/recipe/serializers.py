@@ -1,28 +1,51 @@
 from rest_framework import serializers
 
 from recipes.recipe.models import \
-    Recipe, Procedure, Ingredient, RecipeIngredient
+    Recipe, Procedure, Ingredient, RecipeIngredient, MealType
 
 
 class RecipeSerializers(serializers.ModelSerializer):
+    steps = serializers.SerializerMethodField('get_procedures')
+    ingredients = serializers.SerializerMethodField('get_ingredients')
+
     class Meta:
         model = Recipe
-        fields = "__all__"
+        fields = ["id", "title", "description", "prep_time", "cook_time",
+                  "images", "published", "meal_culture", "meal_type",
+                  "author", "country", "steps", "ingredients"]
+        read_only_fields = ["author", "published"]
+
+    def get_procedures(self, obj):
+        steps = Procedure.objects.filter(recipe_id=obj.id)
+        return [{'id': step.get('id'), 'steps': step.get('steps')}
+                for step in steps.values()]
+
+    def get_ingredients(self, ingr):
+        ingredients = RecipeIngredient.objects.filter(recipe_id=ingr.id)
+        return [{'id': ingr.get('id'),
+                 'ingredient': ingr.get('ingredients_list')}
+                for ingr in ingredients.values()]
 
 
 class ProcedureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Procedure
-        fields = "__all__"
+        fields = ["id", "recipe", "steps"]
 
 
 class IngredientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ingredient
-        fields = "__all__"
+        fields = ["id", "name"]
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
     class Meta:
         model = RecipeIngredient
-        fields = "__all__"
+        fields = ["id", "ingredients_list", "recipe"]
+
+
+class MealTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MealType
+        fields = ["id", "name"]

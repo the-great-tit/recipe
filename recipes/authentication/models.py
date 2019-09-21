@@ -20,6 +20,14 @@ class Role(SoftDeleteModel):
         return self.name
 
 
+class Country(SoftDeleteModel):
+    """Countries cultures
+    """
+    name = models.CharField(max_length=244, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True, editable=False)
+
+
 class UserManager(BaseUserManager):
     """Overide create user methods."""
 

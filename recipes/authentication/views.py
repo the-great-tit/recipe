@@ -1,33 +1,40 @@
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
 from jwt import ExpiredSignatureError, DecodeError
-from rest_framework import generics, views, status
 from rest_framework.response import Response
 from rest_framework_jwt.utils import jwt_decode_handler
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
-from .models import Role
 from .utils.mails import auth_email
-from .serializers import RoleSerializer, RegisterSerializer
+
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics, views, status, viewsets
+
+from recipes.authentication.serializers import \
+    RoleSerializer, RegisterSerializer, CountrySerializer
+
+from recipes.authentication.models import Role, Country
 
 User = get_user_model()
 
 
-class RoleView(generics.ListCreateAPIView):
+class RoleView(viewsets.ModelViewSet):
     # permission_classes = ()
     queryset = Role.objects.all()
+    permission_classes = (IsAuthenticated,)
     serializer_class = RoleSerializer
+
+
+class CountryView(viewsets.ModelViewSet):
+    queryset = Country.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = CountrySerializer
 
 
 class RegisterUserView(generics.CreateAPIView):
     permission_classes = ()
     serializer_class = RegisterSerializer
-
-
-class RoleViewRUD(generics.RetrieveUpdateDestroyAPIView):
-    # permission_classes = (IsAdmin,)
-    pass
 
 
 class LoginView(views.APIView):
@@ -47,7 +54,7 @@ class LoginView(views.APIView):
                         'user_id': user.id,
                         'username': user.username,
                         'email': user.email,
-                        'role': user.role.id,
+                        # 'role': user.role.id,
                         'profile': {
                             'first_name': user.profile.first_name,
                             'other_names': user.profile.other_names,
