@@ -17,8 +17,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Ingredient',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('deleted', models.UUIDField(blank=True, default=None, null=True)),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
+                ('deleted', models.UUIDField(blank=True, default=None,
+                                             null=True)),
                 ('name', models.CharField(max_length=100)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
@@ -30,8 +32,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MealType',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('deleted', models.UUIDField(blank=True, default=None, null=True)),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
+                ('deleted', models.UUIDField(blank=True, default=None,
+                                             null=True)),
                 ('name', models.CharField(max_length=100)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
@@ -43,8 +47,10 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Recipe',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('deleted', models.UUIDField(blank=True, default=None, null=True)),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
+                ('deleted', models.UUIDField(blank=True, default=None,
+                                             null=True)),
                 ('title', models.CharField(max_length=250)),
                 ('slug', models.SlugField(max_length=200, unique=True)),
                 ('description', models.CharField(max_length=500)),
@@ -53,11 +59,15 @@ class Migration(migrations.Migration):
                 ('prep_time', models.CharField(max_length=50)),
                 ('cook_time', models.CharField(max_length=50)),
                 ('meal_time', models.CharField(max_length=50)),
-                ('images', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(blank=True, max_length=500), size=8)),
+                ('images', django.contrib.postgres.fields.ArrayField(
+                    base_field=models.CharField(blank=True, max_length=500),
+                    size=8)),
                 ('published', models.BooleanField(default=False)),
                 ('published_at', models.DateTimeField(blank=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('meal_type', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='recipe.MealType')),
+                ('meal_type', models.ForeignKey(
+                    on_delete=django.db.models.deletion.DO_NOTHING,
+                    to='recipe.MealType')),
             ],
             options={
                 'abstract': False,
@@ -66,13 +76,19 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='RecipeIngredient',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('deleted', models.UUIDField(blank=True, default=None, null=True)),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
+                ('deleted', models.UUIDField(blank=True, default=None,
+                                             null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('quantity', models.IntegerField()),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('ingredient', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='recipe.Ingredient')),
-                ('recipe', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='recipe.Recipe')),
+                ('ingredient', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='recipe.Ingredient')),
+                ('recipe', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='recipe.Recipe')),
             ],
             options={
                 'abstract': False,
@@ -81,12 +97,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Procedure',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('deleted', models.UUIDField(blank=True, default=None, null=True)),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False,
+                                        verbose_name='ID')),
+                ('deleted', models.UUIDField(blank=True, default=None,
+                                             null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('body', models.TextField(max_length=1500)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('recipe', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='recipe.Recipe')),
+                ('recipe', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to='recipe.Recipe')),
             ],
             options={
                 'abstract': False,

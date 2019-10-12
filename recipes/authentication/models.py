@@ -11,13 +11,21 @@ from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
 class Role(SoftDeleteModel):
     """User access roles and levels."""
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
 
     def __str__(self):
         """Display name by default."""
         return self.name
+
+
+class Country(SoftDeleteModel):
+    """Countries cultures
+    """
+    name = models.CharField(max_length=244, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True, editable=False)
 
 
 class UserManager(BaseUserManager):
@@ -82,7 +90,7 @@ class User(AbstractBaseUser, PermissionsMixin, SoftDeleteModel):
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    role = models.ForeignKey(Role, on_delete=models.DO_NOTHING, default=2)
+    # role = models.ForeignKey(Role, on_delete=models.DO_NOTHING, default=2)
     GUID = models.UUIDField(default=uuid.uuid4, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
 
@@ -112,9 +120,6 @@ class User(AbstractBaseUser, PermissionsMixin, SoftDeleteModel):
         token = jwt_encode_handler(payload)
 
         return token
-
-    # def get_by_natural_key(self, username):
-    #     return self.get(username=username)
 
     def __str__(self):
         """Display user email by default."""
